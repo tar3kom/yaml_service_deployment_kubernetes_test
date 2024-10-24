@@ -2,9 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend-deployment
-  namespace: default  # ใช้ namespace default
+  namespace: default # ใช้ namespace default
 spec:
-  replicas: 2
+  replicas: 5
   selector:
     matchLabels:
       app: backend-web-api
@@ -14,22 +14,22 @@ spec:
         app: backend-web-api
     spec:
       containers:
-      - name: backend-container
-        image: tar3kom/nginx-node-test
-        ports:
-        - containerPort: 3000
+        - name: backend-container
+          image: tar3kom/nginx-node-test
+          ports:
+            - containerPort: 3000
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: backend-service
-  namespace: default  # ใช้ namespace default
+  namespace: default # ใช้ namespace default
 spec:
   selector:
     app: backend-web-api
   ports:
     - protocol: TCP
-      port: 3000         # พอร์ตที่ expose ใน cluster
-      targetPort: 3000   # พอร์ตใน container (service จะส่ง traffic ไปที่พอร์ตนี้)
-      nodePort: 30001    # พอร์ตบน node ที่จะเปิดให้เข้าถึง (ต้องระบุระหว่าง 30000-32767)
-  type: NodePort         # ใช้ NodePort เพื่อเปิดพอร์ตออกไปภายนอก
+      port: 3000 # พอร์ตที่ expose ใน cluster
+      targetPort: 3000 # พอร์ตใน container (service จะส่ง traffic ไปที่พอร์ตนี้)
+      nodePort: 30001 # พอร์ตบน node ที่จะเปิดให้เข้าถึง (ต้องระบุระหว่าง 30000-32767)
+  type: NodePort # ใช้ NodePort เพื่อเปิดพอร์ตออกไปภายนอก
