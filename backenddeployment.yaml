@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend-container
-          image: tar3kom/nginx-node-test
+          image: tar3kom/nginx-node-test:latest
           ports:
             - containerPort: 3000
 ---
