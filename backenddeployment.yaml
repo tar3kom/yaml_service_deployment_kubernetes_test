@@ -24,7 +24,7 @@ metadata:
   name: backend-deployment
   namespace: default
 spec:
-  replicas: 5
+  replicas: 1
   selector:
     matchLabels:
       app: backend-web-api
