@@ -1,8 +1,28 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: backend-deployment
+#   namespace: default # ใช้ namespace default
+# spec:
+#   replicas: 5
+#   selector:
+#     matchLabels:
+#       app: backend-web-api
+#   template:
+#     metadata:
+#       labels:
+#         app: backend-web-api
+#     spec:
+#       containers:
+#         - name: backend-container
+#           image: tar3kom/nginx-node-test:8
+#           ports:
+#             - containerPort: 3000
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend-deployment
-  namespace: default # ใช้ namespace default
+  namespace: default
 spec:
   replicas: 5
   selector:
@@ -13,6 +33,8 @@ spec:
       labels:
         app: backend-web-api
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: db.asia-southeast1-a.c.lunar-ensign-438208-p6.internal
       containers:
         - name: backend-container
           image: tar3kom/nginx-node-test:8
