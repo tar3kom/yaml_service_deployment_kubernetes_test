@@ -54,4 +54,4 @@ spec:
       port: 3000 # พอร์ตที่ expose ใน cluster
       targetPort: 3000 # พอร์ตใน container (service จะส่ง traffic ไปที่พอร์ตนี้)
       nodePort: 30001 # พอร์ตบน node ที่จะเปิดให้เข้าถึง (ต้องระบุระหว่าง 30000-32767)
-  type: LoadBalancer # ใช้ NodePort เพื่อเปิดพอร์ตออกไปภายนอก
+  type: NodePort # ใช้ NodePort เพื่อเปิดพอร์ตออกไปภายนอก
