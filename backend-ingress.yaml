@@ -7,10 +7,9 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-    - host: 35.240.254.240 # หรือใช้โดเมนหากมี
-      http:
+    - http:
         paths:
-          - path: /
+          - path: /api
             pathType: Prefix
             backend:
               service:
