@@ -18,6 +18,44 @@
 #           image: tar3kom/nginx-node-test:8
 #           ports:
 #             - containerPort: 3000
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: backend-deployment
+#   namespace: default
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: backend-web-api
+#   template:
+#     metadata:
+#       labels:
+#         app: backend-web-api
+#     spec:
+#       # nodeSelector:
+#       #   kubernetes.io/hostname: db.asia-southeast1-a.c.lunar-ensign-438208-p6.internal
+#       containers:
+#         - name: backend-container
+#           image: tar3kom/nginx-node-test:8
+#           ports:
+#             - containerPort: 3000
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: backend-service
+#   namespace: default # ใช้ namespace default
+# spec:
+#   selector:
+#     app: backend-web-api
+#   ports:
+#     - protocol: TCP
+#       port: 3000 # พอร์ตที่ expose ใน cluster
+#       targetPort: 3000 # พอร์ตใน container (service จะส่ง traffic ไปที่พอร์ตนี้)
+#       nodePort: 30001 # พอร์ตบน node ที่จะเปิดให้เข้าถึง (ต้องระบุระหว่าง 30000-32767)
+#   type: NodePort # ใช้ NodePort เพื่อเปิดพอร์ตออกไปภายนอก
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -33,8 +71,8 @@ spec:
       labels:
         app: backend-web-api
     spec:
-      # nodeSelector:
-      #   kubernetes.io/hostname: db.asia-southeast1-a.c.lunar-ensign-438208-p6.internal
+      nodeSelector:
+        kubernetes.io/hostname: backend.asia-southeast1-a.c.lunar-ensign-438208-p6.internal # ระบุ node ที่ต้องการ deploy
       containers:
         - name: backend-container
           image: tar3kom/nginx-node-test:8
@@ -55,3 +93,4 @@ spec:
       targetPort: 3000 # พอร์ตใน container (service จะส่ง traffic ไปที่พอร์ตนี้)
       nodePort: 30001 # พอร์ตบน node ที่จะเปิดให้เข้าถึง (ต้องระบุระหว่าง 30000-32767)
   type: NodePort # ใช้ NodePort เพื่อเปิดพอร์ตออกไปภายนอก
+
