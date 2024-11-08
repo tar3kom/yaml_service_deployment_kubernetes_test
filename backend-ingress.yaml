@@ -5,13 +5,12 @@ metadata:
   namespace: default
 spec:
   rules:
-    - host: "35.240.254.240" # ใช้ External IP ของ Node ที่รัน Ingress Controller
-      http:
+    - http:
         paths:
           - path: /api
             pathType: Prefix
             backend:
               service:
-                name: backend-service # ชื่อของ Service ที่ต้องการ route ไป
+                name: backend-service
                 port:
-                  number: 3000 # พอร์ตของ Service ที่ต้องการ route ไป
+                  number: 3000
